@@ -12,6 +12,7 @@ export const load = (async ({ fetch /*special way for Svelte to do server side r
       name: monster.name,
       url: monster.url,
       id,
+      image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
     }
   })
 
