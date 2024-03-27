@@ -3,7 +3,7 @@
   import { generations } from "./generations";
 
   interface MonsterData {
-    id: number;
+    id: string;
     name: string;
     image: string;
   }
@@ -11,10 +11,17 @@
   interface Monster extends PageData {
     monsters: MonsterData[];
   }
+  let monsterId: string;
+  $: monster = data.monsters.find((monster) => monster.id === monsterId);
+  const monsterClick = (monster: MonsterData) => {
+    monsterId = monster.id;
+  };
 
   export let data: Monster; // special syntax for SvelteKit which allows us to pass data from the server to the client
 </script>
 
+<h1>{monsterId}</h1>
+<h2>{monster?.name}</h2>
 <div class="generations">
   {#each generations as generation (generation.id)}
     <div class="generation">{generation.main_region}</div>
@@ -23,7 +30,9 @@
 
 <div class="monsters">
   {#each data.monsters as monster (monster.id)}
-    <div class="monster">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="monster" on:click={() => monsterClick(monster)}>
       <div class="monster-content">
         <img src={monster.image} alt={monster.name} />
         {monster.name}
@@ -65,18 +74,18 @@
     font-size: 0.8em;
     color: #aaa;
   }
-.monster {
+  .monster {
     width: 100px;
     margin: 10px;
     padding: 10px;
     position: relative;
     background-color: #22ff00;
     transition: background-color 0.5s ease;
-}
+  }
 
-.monster:hover {
+  .monster:hover {
     background-color: #00ff95;
-}
+  }
   .monster-content {
     display: flex;
     flex-direction: column;
