@@ -1,11 +1,17 @@
-type IndexMonster = {
+import type { PageLoad } from "./$types"
+
+type ApiMonster = {
   name: string
   url: string
 }
-export const load = (async ({ fetch /*special way for Svelte to do server side rendering*/ }: {fetch: typeof window.fetch}) => {
+export type IndexMonster = ApiMonster & {
+  id: string
+  image: string
+}
+export const load = (async ({ fetch }) => {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
   const json = await response.json()
-  const monsters = json.results.map((monster: IndexMonster) => {
+  const monsters: IndexMonster[] = json.results.map((monster: ApiMonster) => {
     const splitUrl = monster.url.split('/')
     const id = splitUrl[splitUrl.length - 2]
     return {
@@ -19,4 +25,4 @@ export const load = (async ({ fetch /*special way for Svelte to do server side r
   return {
     monsters
   }
-})
+}) satisfies PageLoad
