@@ -46,11 +46,11 @@
     margin: 5px;
     padding: 5px 10px;
     border: 1px solid black;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #ff0000;
+    color: #ffffff;
   }
   .generation:hover {
-    background-color: #eee;
+    background-color: #00027c;
   }
   .monsters {
     display: flex;
@@ -65,16 +65,18 @@
     font-size: 0.8em;
     color: #aaa;
   }
-  .monster {
+.monster {
     width: 100px;
     margin: 10px;
     padding: 10px;
     position: relative;
-    background-color: #eee;
-  }
-  .monster:hover {
-    background-color: #ddd;
-  }
+    background-color: #22ff00;
+    transition: background-color 0.5s ease;
+}
+
+.monster:hover {
+    background-color: #00ff95;
+}
   .monster-content {
     display: flex;
     flex-direction: column;
